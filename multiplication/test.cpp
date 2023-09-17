@@ -4,7 +4,7 @@
 
 TEST_CASE("Signature") {
     INFO("Do not change Multiply signature");
-    STATIC_CHECK(std::is_same_v<decltype(&Multiply), int64_t (*)(int, int)>);
+    STATIC_CHECK(std::is_same_v<decltype(&Multiply), int64_t (*)(int64_t, int64_t)>);
 }
 
 TEST_CASE("Simple") {
