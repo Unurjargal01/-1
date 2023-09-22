@@ -4,5 +4,17 @@
 #include <stdexcept>
 
 std::vector<int> Range(int from, int to, int step = 1) {
-    throw std::runtime_error{"Not implemented"};
+    //throw std::runtime_error{"Not implemented"};
+    std::vector<int> v;
+    
+    if (from < to && step > 0) {
+        for(int i = from; i < to; i += step){
+            v.push_back(i);
+        }
+    } else if (from > to && step < 0){
+        for(int i = from; i > to; i += step){
+            v.push_back(i);
+        }
+    }
+    return v;
 }
