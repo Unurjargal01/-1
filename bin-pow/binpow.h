@@ -3,5 +3,16 @@
 #include <stdexcept>
 
 int BinPow(int a, int64_t b, int c) {
-    throw std::runtime_error{"Not implemented"};
+    //throw std::runtime_error{"Not implemented"};
+    int64_t ans = 1, mov = a, n = b;
+    // b by  
+    while (n >= 1) {
+        if (n % 2) {
+            ans *= mov;
+            ans %= c;
+        }
+        mov = (mov * mov) % c;
+        n /= 2;
+    }
+    return ans;
 }
