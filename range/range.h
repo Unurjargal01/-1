@@ -5,7 +5,6 @@
 
 std::vector<int> Range(int from, int to, int step = 1) {
     std::vector<int> v;
-    
     if (from < to && step > 0) {
         for (int i = from; i < to; i += step) {
             v.push_back(i);
