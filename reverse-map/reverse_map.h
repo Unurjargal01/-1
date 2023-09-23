@@ -5,5 +5,9 @@
 #include <stdexcept>
 
 std::unordered_map<int, std::string> ReverseMap(const std::unordered_map<std::string, int>& map) {
-    throw std::runtime_error{"Not implemented"};
+    std::unordered_map<int, std::string> ans;
+    for (const auto& v : map) {
+        ans[v.second] = v.first;
+    }
+    return ans;
 }
