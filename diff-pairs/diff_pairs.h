@@ -9,16 +9,19 @@
 
 int64_t CountPairs(const std::vector<int>& data, int x) {
     std::map<int, int> counter;
-    int64_t cnt = 0;
+    int cnt = 0;
+    int int_max = std::pow(2, 31) - 1;
     for (const int& v : data) {
-        int64_t dif = x - v;
-        if (std::abs(dif) <= std::pow(2, 31) - 1) {
-            if (counter.find(x - v) != counter.end()) {
-                cnt += counter[x - v];
-            }
-            if (counter.insert(std::pair<int, int>(v, 1)).second == 0) {
-                counter[v] += 1;
-            }
+        if (((x > 0) && ((x - int_max) > v)) || ((x < 0) && ((v - x) > int_max))) {
+            continue;
+        }
+        int dif = x - v;
+
+        if (counter.find(dif) != counter.end()) {
+            cnt += counter[dif];
+        }
+        if (counter.insert(std::pair<int, int>(v, 1)).second == 0) {
+            counter[v] += 1;
         }
     }
     return cnt;
