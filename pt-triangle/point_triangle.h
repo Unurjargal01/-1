@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdexcept>
+#include <cmath>
 
 struct Point {
     int x, y;
@@ -22,13 +23,13 @@ bool Onborder(const Point& a, const Point& b, const Point& pt) {
     }
     return false;
 }
-double Det(const Point& a, const Point& b) {
-    return static_cast<double>(a.x * b.y - a.y * b.x);
+double DetNorm(const Point& a, const Point& b) {
+    return static_cast<double>(a.x * b.y - a.y * b.x) / std::pow(10., 5);
 }
 bool Inside(const Point& a, const Point& b, const Point& c, const Point& pt) {
     Point u{b.x - a.x, b.y - a.y}, v{c.x - a.x, c.y - a.y}, dif{pt.x - a.x, pt.y - a.y};
-    double n = (Det(dif, u) - Det(a, u)) / Det(v, u);
-    double m = -(Det(dif, v) - Det(a, v)) / Det(v, u);
+    double n = (DetNorm(dif, u) - DetNorm(a, u)) / DetNorm(v, u);
+    double m = -(DetNorm(dif, v) - DetNorm(a, v)) / DetNorm(v, u);
 
     if (n > 0 && m > 0 && (n + m < 1)) {
         return true;
