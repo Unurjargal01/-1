@@ -2,10 +2,8 @@
 
 #include <vector>
 #include <stdexcept>
-//Erase-remove idiom
-bool comp(int x) {
-    return x % 2;
-}
+// Erase-remove idiom
+
 void FilterEven(std::vector<int>* data) {
     size_t it = 0, cur = 0;
     while (cur < data->size()) {
@@ -15,5 +13,5 @@ void FilterEven(std::vector<int>* data) {
         }
         ++cur;
     }
-    data->erase(data->begin() + it, data->end());  
+    data->erase(data->begin() + it, data->end());
 }
