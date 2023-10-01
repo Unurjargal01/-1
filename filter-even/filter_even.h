@@ -2,7 +2,18 @@
 
 #include <vector>
 #include <stdexcept>
-
+//Erase-remove idiom
+bool comp(int x) {
+    return x % 2;
+}
 void FilterEven(std::vector<int>* data) {
-    throw std::runtime_error{"Not implemented"};
+    size_t it = 0, cur = 0;
+    while (cur < data->size()) {
+        if (data->at(cur) % 2 == 0) {
+            std::swap(data->at(it), data->at(cur));
+            ++it;
+        }
+        ++cur;
+    }
+    data->erase(data->begin() + it, data->end());  
 }
