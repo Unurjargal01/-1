@@ -33,8 +33,8 @@ bool CompkByName(Student& a, Student& b) {
 }
 void SortStudents(std::vector<Student>* students, SortType sort_type) {
     if (sort_type == SortType::kByDate) {
-        std::ranges::sort(*students, {}, CompkByDate);
+        std::sort(students->begin(), students->end(), CompkByDate);
     } else {
-        std::ranges::sort(*students, {}, CompkByName);
+        std::sort(students->begin(), students->end(), CompkByName);
     }
 }
