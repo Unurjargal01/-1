@@ -2,6 +2,7 @@
 
 #include <stdexcept>
 #include <cmath>
+#include <algorithm>
 
 struct Point {
     int x, y;
@@ -10,7 +11,7 @@ struct Point {
 struct Triangle {
     Point a, b, c;
 };
-
+/* generally normalize the vectors*/
 bool Onborder(const Point& a, const Point& b, const Point& pt) {
     if (((a.x == pt.x) && (a.y == pt.y)) || ((b.x == pt.x) && (b.y == pt.y))) {
         return true;
@@ -24,7 +25,7 @@ bool Onborder(const Point& a, const Point& b, const Point& pt) {
     return false;
 }
 double DetNorm(const Point& a, const Point& b) {
-    return static_cast<double>(a.x * b.y - a.y * b.x) / std::pow(10., 5);
+    return (static_cast<double>(a.x) * b.y - static_cast<double>(a.y) * b.x);
 }
 bool Inside(const Point& a, const Point& b, const Point& c, const Point& pt) {
     Point u{b.x - a.x, b.y - a.y}, v{c.x - a.x, c.y - a.y}, dif{pt.x - a.x, pt.y - a.y};
