@@ -3,9 +3,19 @@
 #include <stdexcept>
 
 void Swap(int* a, int* b) {
-    throw std::runtime_error{"Not implemented"};
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
 void Sort3(int* a, int* b, int* c) {
-    throw std::runtime_error{"Not implemented"};
+    if (*a > *b) {
+        Swap(a, b);
+    }
+    if (*c < *b) {
+        Swap(b, c);
+    }
+    if (*a > *b) {
+        Swap(a, b);
+    }
 }
