@@ -11,21 +11,13 @@ struct Point {
 struct Triangle {
     Point a, b, c;
 };
-
-double DetNorm(const Point& a, const Point& b) {
-    return (static_cast<double>(a.x) * b.y - static_cast<double>(a.y) * b.x);
-}
-bool Inside(const Point& a, const Point& b, const Point& c, const Point& pt) {
-    Point u{b.x - a.x, b.y - a.y}, v{c.x - a.x, c.y - a.y}, dif{pt.x - a.x, pt.y - a.y};
-    double n = (DetNorm(dif, u) - DetNorm(a, u)) / DetNorm(v, u);
-    double m = -(DetNorm(dif, v) - DetNorm(a, v)) / DetNorm(v, u);
-
-    if (n >= 0 && m >= 0 && (n + m <= 1)) {
-        return true;
-    }
-    return false;
-}
+// Explicit calculation of barycenter coordinates;
 bool IsPointInTriangle(const Triangle& t, const Point& pt) {
-    Point a1 = t.a, b1 = t.b, c1 = t.c;
-    return Inside(a1, b1, c1, pt);
+    Point u{t.b.x - t.a.x, t.b.y - t.a.y}, v{t.c.x - t.a.x, t.c.y - t.a.y},
+        diff{pt.x - t.a.x, pt.y - t.a.y};
+    double det = static_cast<double>(u.x) * v.y - static_cast<double>(v.x) * u.y;
+    double lambda1 = (static_cast<double>(v.y) * diff.x - static_cast<double>(v.x) * diff.y) / det;
+    double lambda2 = (-static_cast<double>(u.y) * diff.x + static_cast<double>(u.x) * diff.y) / det;
+    double lambda3 = 1 - lambda1 - lambda2;
+    return (lambda1 >= 0 && lambda2 >= 0 && lambda3 >= 0) ? true : false;
 }
