@@ -11,19 +11,7 @@ struct Point {
 struct Triangle {
     Point a, b, c;
 };
-/* generally normalize the vectors*/
-bool Onborder(const Point& a, const Point& b, const Point& pt) {
-    if (((a.x == pt.x) && (a.y == pt.y)) || ((b.x == pt.x) && (b.y == pt.y))) {
-        return true;
-    } else {
-        double ct = static_cast<double>(b.x - a.x) / (pt.x - a.x);
-        double ct1 = static_cast<double>(b.y - a.y) / (pt.y - a.y);
-        if (ct == ct1) {
-            return true;
-        }
-    }
-    return false;
-}
+
 double DetNorm(const Point& a, const Point& b) {
     return (static_cast<double>(a.x) * b.y - static_cast<double>(a.y) * b.x);
 }
@@ -32,17 +20,12 @@ bool Inside(const Point& a, const Point& b, const Point& c, const Point& pt) {
     double n = (DetNorm(dif, u) - DetNorm(a, u)) / DetNorm(v, u);
     double m = -(DetNorm(dif, v) - DetNorm(a, v)) / DetNorm(v, u);
 
-    if (n > 0 && m > 0 && (n + m < 1)) {
+    if (n >= 0 && m >= 0 && (n + m <= 1)) {
         return true;
     }
     return false;
 }
 bool IsPointInTriangle(const Triangle& t, const Point& pt) {
     Point a1 = t.a, b1 = t.b, c1 = t.c;
-    if (Onborder(a1, b1, pt) || Onborder(b1, c1, pt) || Onborder(c1, a1, pt)) {
-        return true;
-    } else if (Inside(a1, b1, c1, pt)) {
-        return true;
-    }
-    return false;
+    return Inside(a1, b1, c1, pt);
 }
