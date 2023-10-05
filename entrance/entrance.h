@@ -14,7 +14,14 @@ struct StudentName {
 struct Date {
     int year, month, day;
 };
-
+bool CompName(const StudentName& a, const StudentName& b) {
+    if (a.surname != b.surname) {
+        return a.surname < b.surname;
+    } else if (a.name != b.name) {
+        return a.name < b.name;
+    }
+    return true;
+}
 bool Compare(const std::tuple<StudentName, Date, int, std::vector<std::string>>& first,
              const std::tuple<StudentName, Date, int, std::vector<std::string>>& second) {
     auto& [Name1, Date1, Score1, School1] = first;
@@ -27,12 +34,8 @@ bool Compare(const std::tuple<StudentName, Date, int, std::vector<std::string>>&
         return Date1.month < Date2.month;
     } else if (Date1.day != Date2.day) {
         return Date1.day < Date2.day;
-    } else if (Name1.surname != Name2.surname) {
-        return Name1.surname < Name2.surname;
-    } else if (Name1.name != Name2.name) {
-        return Name1.name < Name2.name;
     }
-    return true;
+    return CompName(Name1, Name2);
 }
 
 std::map<std::string, std::vector<StudentName>> GetStudents(
@@ -60,6 +63,9 @@ std::map<std::string, std::vector<StudentName>> GetStudents(
                 break;
             }
         }
+    }
+    for (auto& [key, value] : ans) {
+        std::sort(value.begin(), value.end(), CompName);
     }
     return ans;
 }
