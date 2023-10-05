@@ -56,6 +56,7 @@ std::map<std::string, std::vector<StudentName>> GetStudents(
         for (const auto& i : Schools) {
             if (university[i]) {
                 ans[i].push_back(Name);
+                university[i] -= 1;
                 break;
             }
         }
