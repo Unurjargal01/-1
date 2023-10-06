@@ -1,25 +1,31 @@
 #pragma once
 
 #include <cstddef>
-
+#include <vector>
 class Stack {
 public:
     void Push(int x) {
+        elems_.push_back(x);
     }
 
     bool Pop() {
-        return true;
+        bool ans = !elems_.empty();
+        elems_.pop_back();
+        return ans;
     }
 
     int Top() const {
-        return 0;
+        return elems_.back();
     }
 
     bool Empty() const {
-        return false;
+        return elems_.empty();
     }
 
     size_t Size() const {
-        return 0;
+        return elems_.size();
     }
+
+private:
+    std::vector<int> elems_;
 };
