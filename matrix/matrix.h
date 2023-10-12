@@ -2,10 +2,10 @@
 #include <vector>
 class Matrix {
 public:
-    Matrix(const size_t& row, const size_t& col)
+    Matrix(const std::size_t& row, const std::size_t& col)
         : matrix_(row, std::vector<double>(col)), row_(row), col_(col) {
     }
-    Matrix(const size_t& rc) : Matrix(rc, rc) {
+    Matrix(const std::size_t& rc) : Matrix(rc, rc) {
     }
     Matrix(const std::vector<std::vector<double>>& v) : row_(v.size()), col_(v[0].size()) {
         for (auto vect : v) {
@@ -13,30 +13,30 @@ public:
         }
     }
 
-    size_t Rows() const {
+    std::size_t Rows() const {
         return row_;
     }
-    size_t Columns() const {
+    std::size_t Columns() const {
         return col_;
     }
-    double operator()(const size_t& x, const size_t& y) const {
+    double operator()(const std::size_t& x, const std::size_t& y) const {
         return matrix_[x][y];
     }
-    double& operator()(const size_t& x, const size_t& y) {
+    double& operator()(const std::size_t& x, const std::size_t& y) {
         return matrix_[x][y];
     }
 
     Matrix& operator+=(const Matrix& n) {
-        for (size_t i = 0; i < row_; ++i) {
-            for (size_t j = 0; j < col_; ++j) {
+        for (std::size_t i = 0; i < row_; ++i) {
+            for (std::size_t j = 0; j < col_; ++j) {
                 matrix_[i][j] += n(i, j);
             }
         }
         return *this;
     }
     Matrix& operator-=(const Matrix& n) {
-        for (size_t i = 0; i < row_; ++i) {
-            for (size_t j = 0; j < col_; ++j) {
+        for (std::size_t i = 0; i < row_; ++i) {
+            for (std::size_t j = 0; j < col_; ++j) {
                 matrix_[i][j] -= n(i, j);
             }
         }
@@ -44,9 +44,9 @@ public:
     }
     Matrix& operator*=(const Matrix& n) {
         std::vector<std::vector<double>> temp(row_, std::vector<double>(n.Columns()));
-        for (size_t i = 0; i < row_; ++i) {
-            for (size_t j = 0; j < n.Columns(); ++j) {
-                for (size_t k = 0; k < col_; ++k) {
+        for (std::size_t i = 0; i < row_; ++i) {
+            for (std::size_t j = 0; j < n.Columns(); ++j) {
+                for (std::size_t k = 0; k < col_; ++k) {
                     temp[i][j] += matrix_[i][k] * n(k, j);
                 }
             }
@@ -67,7 +67,7 @@ public:
 
 private:
     std::vector<std::vector<double>> matrix_;
-    size_t row_, col_;
+    std::size_t row_, col_;
 };
 
 Matrix operator+(Matrix m, const Matrix& n) {
@@ -81,16 +81,16 @@ Matrix operator*(Matrix m, const Matrix& n) {
 }
 Matrix Transpose(const Matrix& m) {
     Matrix temp(m.Columns(), m.Rows());
-    for (size_t i = 0; i < m.Rows(); ++i) {
-        for (size_t j = 0; j < m.Columns(); ++j) {
+    for (std::size_t i = 0; i < m.Rows(); ++i) {
+        for (std::size_t j = 0; j < m.Columns(); ++j) {
             temp(j, i) = m(i, j);
         }
     }
     return temp;
 }
-Matrix Identity(const size_t& t) {
+Matrix Identity(const std::size_t& t) {
     Matrix temp(t);
-    for (size_t i = 0; i < t; ++i) {
+    for (std::size_t i = 0; i < t; ++i) {
         temp(i, i) = 1.0;
     }
     return temp;
