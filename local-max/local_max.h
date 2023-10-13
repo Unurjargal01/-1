@@ -16,7 +16,7 @@ Iterator LocalMax(Iterator first, Iterator last) {
     ++first;
     ++last;
     // One element and two elements;
-    for ( ; first != last; ++first) {
+    for (; first != last; ++first) {
         if (left && *cur < *first) {
             return cur;
         }
