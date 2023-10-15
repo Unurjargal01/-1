@@ -38,7 +38,7 @@ auto MakeReverseBinaryFunctor(auto functor) {
 template <class Iterator>
 size_t ComparisonsCount(Iterator first, Iterator last) {
     size_t ans = 0;
-    std::sort(first, last, [ans](auto a, auto b) mutable {
+    std::sort(first, last, [&ans](auto a, auto b) mutable {
         ++ans;
         return a < b;
     });
