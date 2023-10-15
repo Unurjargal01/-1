@@ -21,5 +21,5 @@ Iterator LocalMax(Iterator first, Iterator last) {
         ++first;
     }
 
-    return last;
+    return (prev) ? cur : last;
 }
