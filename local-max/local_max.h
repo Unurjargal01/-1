@@ -5,23 +5,21 @@
 template <class Iterator>
 Iterator LocalMax(Iterator first, Iterator last) {
     Iterator cur = first;
-    bool left = true;
-    // Empty
+    bool prev = true;
     if (first == last) {
         return last;
-    } else if (first == --last) {
-        return first;
+    } else if (++first == last) {
+        return --first;
     }
-    // Checking first;
-    ++first;
-    ++last;
-    // One element and two elements;
-    for (; first != last; ++first) {
-        if (left && *cur < *first) {
+    // Careful with equality
+    while (first != last) {
+        if (prev && (*cur > *first)) {
             return cur;
         }
-        left = (*cur < *first);
+        prev = (*cur < *first);
         ++cur;
+        ++first;
     }
+
     return last;
 }
