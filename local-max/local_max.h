@@ -13,7 +13,7 @@ Iterator LocalMax(Iterator first, Iterator last) {
     }
     // Careful with equality
     while (first != last) {
-        if (prev && (*cur > *first)) {
+        if (prev && (*first < *cur)) {
             return cur;
         }
         prev = (*cur < *first);
