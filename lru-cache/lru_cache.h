@@ -32,18 +32,18 @@ public:
         if (data_.find(key) == data_.end()) {
             return false;
         }
-        std::string val = Remove(key);
-        Insert(key, val);
-        *value = val;
+        *value = Remove(key);
+        Insert(key, *value);
         return true;
     }
 
     std::string Remove(const std::string& key) {
         auto u = data_.find(key);
         if (u != data_.end()) {
+            std::string val = (*(u->second)).second;
             log_.erase(u->second);
             data_.erase(u);
-            return (*(u->second)).second;
+            return val;
         }
         return "";
     }
