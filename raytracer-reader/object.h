@@ -7,12 +7,16 @@
 
 struct Object {
     const Material* material = nullptr;
+    std::string name;
     Triangle polygon;
-
-    const Vector* GetNormal(size_t index) const;
+    Triangle norm_polygon;
+    const Vector* GetNormal(size_t index) const {
+        return &norm_polygon[index];
+    };
 };
 
 struct SphereObject {
     const Material* material = nullptr;
+    std::string name;
     Sphere sphere;
 };

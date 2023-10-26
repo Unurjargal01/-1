@@ -4,6 +4,7 @@
 #include <array>
 class Triangle {
 public:
+    Triangle() = default;
     Triangle(const Vector& a, const Vector& b, const Vector& c) {
         data_[0] = a;
         data_[1] = b;

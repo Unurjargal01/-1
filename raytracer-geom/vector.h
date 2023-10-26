@@ -7,12 +7,13 @@
 class Vector {
 public:
     // why need to initiate empty constructor;
-    Vector(){};
+    
     Vector(double x, double y, double z) {
         data_[0] = x;
         data_[1] = y;
         data_[2] = z;
     }
+    Vector() {};
     double& operator[](size_t ind) {
         return data_[ind];
     };
@@ -70,7 +71,7 @@ public:
     // Just in case: rule of 3
 
 private:
-    std::array<double, 3> data_;
+    std::array<double, 3> data_ = {};
 };
 
 double DotProduct(const Vector& a, const Vector& b) {
