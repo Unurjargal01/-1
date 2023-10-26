@@ -19,9 +19,9 @@
 // So far we have not cleared or reduced copying
 class Scene {
 public:
-    Scene(std::vector<Object> obj, std::vector<SphereObject> sobj, std::vector<Light> light,
-          std::unordered_map<std::string, Material> materials, std::vector<Vector> vertices,
-          std::vector<Vector> vertices_normal)
+    Scene(std::vector<Object>& obj, std::vector<SphereObject>& sobj, std::vector<Light>& light,
+          std::unordered_map<std::string, Material>& materials, std::vector<Vector>& vertices,
+          std::vector<Vector>& vertices_normal)
         : obj_(obj),
           sobj_(sobj),
           light_(light),
