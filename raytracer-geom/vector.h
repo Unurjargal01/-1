@@ -7,13 +7,13 @@
 class Vector {
 public:
     // why need to initiate empty constructor;
-    
+
     Vector(double x, double y, double z) {
         data_[0] = x;
         data_[1] = y;
         data_[2] = z;
     }
-    Vector() {};
+    Vector(){};
     double& operator[](size_t ind) {
         return data_[ind];
     };
