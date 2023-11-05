@@ -1,0 +1,14 @@
+push
+3
+push
+4
+push
+5
+push
+6
+swap
+1 2
+dup
+print
+pop_carry
+print
