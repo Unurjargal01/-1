@@ -4,7 +4,6 @@
 
 #include <vector>
 #include <memory>
-
 class LimitReader : public Reader {
 public:
     LimitReader(std::unique_ptr<Reader> reader, size_t limit)
@@ -12,10 +11,20 @@ public:
     }
 
     size_t Read(char* buf, size_t len) override {
-        auto read_len = std::min<size_t>(limit_, len);
+        size_t ans = 0;
+        while (len != 0 && limit_ != 0) {
+            auto read_len = std::min<size_t>(limit_, len);
+            auto readen = reader_->Read(buf + ans, read_len);
+            if (readen == 0) {
+                break;
+            }
+            ans += readen;
+            limit_ -= readen;
+            len -= readen;
+        }
+
         // read_len = std::min<size_t>(read_len, 100);
-        limit_ -= read_len;
-        return reader_->Read(buf, read_len);
+        return ans;
     }
 
 private:
