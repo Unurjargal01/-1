@@ -75,6 +75,9 @@ public:
     std::string* operator->() {
         return data_;
     }
+    std::string* operator->() const {
+        return data_;
+    }
 
     std::string* Get() {
         return data_;
