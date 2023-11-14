@@ -36,5 +36,4 @@ void TransformIf(Iterator begin, Iterator end, Predicate p, Functor f) {
     for (auto it : log_it) {
         f(*it);
     }
-
 }
