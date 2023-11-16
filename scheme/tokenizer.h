@@ -49,10 +49,10 @@ bool SymbNext(char c) {
 
 class Tokenizer {
 public:
-    Tokenizer(std::istream *in) : in_(in) {
+    Tokenizer(std::istream* in) : in_(in) {
         Read();
     };
-    
+
     bool IsEnd() {
         // return  (in_->peek() == EOF) && (it_ == vect_.end()) && in_->eof();
         // std::cout << "peeking: " << in_->peek() << std::endl;
@@ -85,7 +85,7 @@ public:
             return;
         }
         std::stringstream sub{token};
-        
+
         char c;
         while (sub.get(c)) {
             if (c == '(') {
@@ -117,12 +117,12 @@ public:
                 // std::cout << "Reading Symb: " << cur << std::endl;
                 vect_.push_back(SymbolToken{cur});
             }
-        it_ = vect_.begin();
+            it_ = vect_.begin();
         }
-        
     }
+
 private:
-    std::istream *in_;
+    std::istream* in_;
     std::vector<Token> vect_;
     std::vector<Token>::iterator it_;
 };
