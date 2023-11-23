@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+//
 struct SymbolToken {
     std::string name;
 
@@ -27,7 +28,7 @@ struct DotToken {
 };
 
 enum class BracketToken { OPEN, CLOSE };
-
+//
 struct ConstantToken {
     int value;
 
@@ -62,6 +63,7 @@ public:
 
     void Next() {
         if (IsEnd()) {
+            vect_.clear();
             return;
         }
         ++it_;
@@ -71,6 +73,7 @@ public:
     }
 
     Token GetToken() {
+        // What if vect_ is empty; or vect_.clear();
         return *it_;
     }
 
