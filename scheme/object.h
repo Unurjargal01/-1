@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include <tokenizer.h>
+#include <error.h>
 
 class Object : public std::enable_shared_from_this<Object> {
 public:
@@ -30,6 +31,27 @@ public:
 private:
     std::string name_;
 };
+// Here useful stuffs might be.
+
+// The idea must be similar to Symbol
+// Is it necessary?
+class Boolean : public Object {
+public:
+    Boolean(const std::string& name) {
+        if (name == "#f" || name == "#t") {
+            name_ = name;
+        } else {
+            throw SyntaxError();
+        }
+    }
+
+private:
+    std::string name_;
+};
+
+class List : public Object {
+
+};
 
 class Cell : public Object {
 public:
@@ -54,7 +76,12 @@ public:
 
 class Quote : public Object {
 public:
-    Quote() = default;
+    Quote(const std::string& name) : name_(name){};
+    const std::string& GetName() const {
+        return name_;
+    };
+private:
+    std::string name_;
 };
 
 class BracketClosed : public Object {

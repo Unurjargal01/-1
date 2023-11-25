@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include <symbol.h>
 //
 struct SymbolToken {
     std::string name;
@@ -39,14 +40,6 @@ struct ConstantToken {
 
 using Token = std::variant<ConstantToken, BracketToken, SymbolToken, QuoteToken, DotToken>;
 
-bool Symb(char& c) {
-    std::string s = " <=>*#";
-    return (isalpha(c) || (s.find(c) != std::string::npos));
-}
-bool SymbNext(char c) {
-    std::string s = " <=>*#?!-";
-    return (isalpha(c) || isdigit(c) || (s.find(c) != std::string::npos));
-}
 
 class Tokenizer {
 public:
