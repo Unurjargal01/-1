@@ -4,7 +4,6 @@
 #include <memory>
 #include <vector>
 #include <string>
-#include <iostream>
 #include <algorithm>
 
 class Command;  // Forward declaration
@@ -102,12 +101,12 @@ public:
     void ShiftRight();
     void Backspace();
     void Redo();
-
+    /*
     void Print() {
         std::cout << before_cursor_ << std::endl;
         std::cout << after_cursor_reversed_ << std::endl;
     }
-
+    */
     size_t Size() const {
         return before_cursor_.size() + after_cursor_reversed_.size();
     }
@@ -124,7 +123,7 @@ private:
     std::string before_cursor_;
     std::string after_cursor_reversed_;
     CommandHistory history_;
-    size_t pos_;
+    // size_t pos_;
     std::vector<std::shared_ptr<Command>> redo_;
 };
 
@@ -269,6 +268,7 @@ void Editor::Redo() {
     if (!redo_.empty()) {
         std::shared_ptr<Command> cmd = redo_.back();
         cmd->Execute();
+        history_.Push(cmd);
         redo_.pop_back();
     }
 }
