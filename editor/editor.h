@@ -50,7 +50,7 @@ public:
         const std::string& before_cursor_;
         const std::string& after_cursor_reversed_;
         size_t pos_, cnt_;
-        
+
         TextView(const std::string& before_cursor, const std::string& after_cursor, size_t pos,
                  size_t cnt)
             : before_cursor_(before_cursor),
@@ -60,7 +60,7 @@ public:
 
         class Iterator {
         public:
-            Iterator(const TextView& textview, size_t pos) : textview_(textview), pos_(pos){
+            Iterator(const TextView& textview, size_t pos) : textview_(textview), pos_(pos) {
             }
 
             bool operator!=(const Iterator& other) const {
@@ -96,6 +96,7 @@ public:
     };
 
     void Type(char symbol);
+
     void Undo();
     void ShiftLeft();
     void ShiftRight();
