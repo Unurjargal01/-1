@@ -1,5 +1,7 @@
 #pragma once
 
+#include "dist.h"
+
 #include <random>
 #include <vector>
 #include <algorithm>
@@ -23,7 +25,7 @@ public:
 
     template <class T>
     std::vector<T> GenIntegralVector(size_t count, T from, T to) {
-        std::uniform_int_distribution dist{from, to};
+        UniformIntDistribution dist{from, to};
         std::vector<T> result(count);
         for (auto& cur : result) {
             cur = dist(gen_);
@@ -31,13 +33,17 @@ public:
         return result;
     }
 
-    std::string GenString(size_t count, char from = 'a', char to = 'z') {
-        std::uniform_int_distribution<int> dist{from, to};
+    std::string GenString(size_t count, char from, char to) {
+        UniformIntDistribution<int> dist{from, to};
         std::string result(count, from);
         for (auto& x : result) {
             x = dist(gen_);
         }
         return result;
+    }
+
+    std::string GenString(size_t count) {
+        return GenString(count, 'a', 'z');
     }
 
     std::vector<double> GenRealVector(size_t count, double from, double to) {
@@ -58,13 +64,22 @@ public:
 
     template <class T>
     T GenInt(T from, T to) {
-        std::uniform_int_distribution dist{from, to};
+        UniformIntDistribution dist{from, to};
         return dist(gen_);
     }
 
     template <class T>
     T GenInt() {
         return GenInt(std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
+    }
+
+    char GenChar(char from, char to) {
+        UniformIntDistribution<int> dist{from, to};
+        return dist(gen_);
+    }
+
+    char GenChar() {
+        return GenChar('a', 'z');
     }
 
     template <class Iterator>
