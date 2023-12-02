@@ -39,16 +39,16 @@ WeatherForecast Forecast::ForecastWeather(std::optional<Location> where) {
     session.sendRequest(request);
 
     Poco::Net::HTTPResponse response;
-    std::istream& responseStream = session.receiveResponse(response);
-    std::string responseData;
+    std::istream& response_stream = session.receiveResponse(response);
+    std::string response_data;
 
     if (response.getStatus() == Poco::Net::HTTPResponse::HTTP_OK) {
         // std::cout << "GET request succeeded (200 OK)" << std::endl;
         std::stringstream ss;
-        ss << responseStream.rdbuf();
-        responseData = ss.str();
+        ss << response_stream.rdbuf();
+        response_data = ss.str();
         Poco::JSON::Parser parser;
-        Poco::Dynamic::Var result = parser.parse(responseData);
+        Poco::Dynamic::Var result = parser.parse(response_data);
         Poco::JSON::Object::Ptr object = result.extract<Poco::JSON::Object::Ptr>();
         Poco::DynamicStruct ds = *object;
 
