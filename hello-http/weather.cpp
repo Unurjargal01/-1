@@ -11,6 +11,16 @@
 #include <Poco/JSON/Parser.h>
 #include <Poco/JSON/Object.h>
 
+class Forecast : public IForecaster {
+public:
+    Forecast(std::string api_key, Poco::URI& uri) : api_key_(api_key), uri_(uri){};
+    WeatherForecast ForecastWeather(std::optional<Location> where = std::nullopt) override;
+
+private:
+    std::string api_key_;
+    Poco::URI uri_;
+};
+
 WeatherForecast Forecast::ForecastWeather(std::optional<Location> where) {
 
     if (where != std::nullopt && where.has_value()) {
@@ -25,7 +35,7 @@ WeatherForecast Forecast::ForecastWeather(std::optional<Location> where) {
     Poco::Net::HTTPRequest request(Poco::Net::HTTPRequest::HTTP_GET, uri_.toString(),
                                    Poco::Net::HTTPMessage::HTTP_1_1);
     request.add("X-Yandex-API-Key", api_key_);
-    std::cout << "URI: " << request.getURI() << std::endl;
+    // std::cout << "URI: " << request.getURI() << std::endl;
     session.sendRequest(request);
 
     Poco::Net::HTTPResponse response;
@@ -33,7 +43,7 @@ WeatherForecast Forecast::ForecastWeather(std::optional<Location> where) {
     std::string responseData;
 
     if (response.getStatus() == Poco::Net::HTTPResponse::HTTP_OK) {
-        std::cout << "GET request succeeded (200 OK)" << std::endl;
+        // std::cout << "GET request succeeded (200 OK)" << std::endl;
         std::stringstream ss;
         ss << responseStream.rdbuf();
         responseData = ss.str();
@@ -47,7 +57,8 @@ WeatherForecast Forecast::ForecastWeather(std::optional<Location> where) {
 
         return WeatherForecast{temp, feels_like};
     } else if (response.getStatus() == Poco::Net::HTTPResponse::HTTP_BAD_REQUEST) {
-        std::cout << "GET request failed with status code: " << response.getStatus() << std::endl;
+        // std::cout << "GET request failed with status code: " << response.getStatus() <<
+        // std::endl;
         throw YandexAPIError(response.getStatus(), "Bad Request");
     }
     return WeatherForecast{0, 0};
