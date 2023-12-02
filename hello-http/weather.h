@@ -4,7 +4,8 @@
 #include <memory>
 #include <optional>
 #include <stdexcept>
-
+#include <Poco/Net/HTTPRequest.h>
+#include <Poco/URI.h>
 struct Location {
     double lat;
     double lon;
@@ -31,6 +32,15 @@ class IForecaster {
 public:
     virtual ~IForecaster() = default;
     virtual WeatherForecast ForecastWeather(std::optional<Location> where = std::nullopt) = 0;
+};
+
+class Forecast : public IForecaster {
+public:
+    Forecast(std::string api_key, Poco::URI& uri) : api_key_(api_key), uri_(uri){};
+    WeatherForecast ForecastWeather(std::optional<Location> where = std::nullopt) override;
+private:
+    std::string api_key_;
+    Poco::URI uri_;
 };
 
 std::unique_ptr<IForecaster> CreateYandexForecaster(
