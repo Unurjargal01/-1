@@ -27,13 +27,13 @@ void TestGetMeErrorHandling(std::string_view url) {
         auto info = bot->GetMe();
     } catch (APIError& err) {
         REQUIRE(err.http_code == 500);
-        std::cout << err.http_code << " " << err.details << std::endl;
+        // std::cout << err.http_code << " " << err.details << std::endl;
     }
     try {
         auto info = bot->GetMe();
     } catch (APIError& err) {
         REQUIRE(err.http_code == 401);
-        std::cout << err.http_code << " " << err.details << std::endl;
+        // std::cout << err.http_code << " " << err.details << std::endl;
     }
 }
 
