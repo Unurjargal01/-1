@@ -1,5 +1,6 @@
 start
 step
-step 10000
-print x
+watch x
+continue
+continue 9999
 quit
