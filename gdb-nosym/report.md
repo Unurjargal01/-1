@@ -1,8 +1,7 @@
 start
 disassemble f
-break *0x0000555555400665
+break *0x0000555555400662
 run
-jump *0x0000555555400665
-continue 10000
+continue 9999
 print $rax
 quit
